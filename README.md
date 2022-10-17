@@ -1,7 +1,7 @@
 # pawn-sort-array
 
 ## Description
- An array data structure implementation for sorted arrays.
+ An sorted data structure implementation for PAWN.
 
 ## Installation
 1. Get the include [sort-array.inc](https://github.com/Sancky/pawn-sort-array/blob/main/pawno/include/sort-array.inc)
