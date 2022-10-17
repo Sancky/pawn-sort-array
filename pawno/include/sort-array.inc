@@ -46,7 +46,7 @@
 /* ---------------------------------------------------------------- */
 
 #define SortArray_Copy(%0,%1) \
-        SortArr@%1 = SortArr@%0, SortArr@count_%1 = SortArr@count_%0 
+        SortArr@%0 = SortArr@%1, SortArr@count_%0 = SortArr@count_%1 
 
 /* ---------------------------------------------------------------- */
 /*  SortArray_Copy(dest[], source[])                                */
