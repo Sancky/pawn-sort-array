@@ -31,7 +31,7 @@
         SortArr@count_%0
 
 /* ---------------------------------------------------------------- */
-/*  SortArray_Count(array)                                          */
+/*  SortArray_Count(array[])                                        */
 /*                                                                  */
 /*  Returns the count of elements from the sorted array.            */
 /* ---------------------------------------------------------------- */
@@ -40,7 +40,7 @@
         SortArr@count_%0 = 0
 
 /* ---------------------------------------------------------------- */
-/*  SortArray_Clear(array)                                          */
+/*  SortArray_Clear(array[])                                        */
 /*                                                                  */
 /*  Clear an sorted array.                                          */
 /* ---------------------------------------------------------------- */
@@ -79,11 +79,6 @@ stock bool:_SortArray_Insert(array[], &count, value, const size = sizeof array) 
     else if(value >= array[count - 1])
         array[count] = value;
 
-    else if(value <= array[0]) {
-        memcpy(array[1], array[0], 0, count << 3, size - 1);
-        array[0] = value;
-    }
-
     else {
         new i = count - 1;
 
@@ -109,16 +104,20 @@ stock bool:_SortArray_Insert(array[], &count, value, const size = sizeof array) 
 #define SortArray_Remove(%0,%1) \
         _SortArray_Remove(SortArr@%0, SortArr@count_%0, %1) 
 
-stock bool:_SortArray_Remove(array[], &count, value, const size = sizeof array) {
-    new const value_index = _SortArray_FindIndex(array, count, value);
+stock bool:_SortArray_Remove(array[], &count, value) {
+    new 
+        values_count = count,
+        value_index = _SortArray_FindIndex(array, values_count, value);
 
-    if(value_index == INVALID_ARRAY_INDEX)
+    if(value_index == INVALID_ARRAY_INDEX) 
         return false;
 
     if(value == array[--count]) 
         return true;
 
-    memcpy(array[value_index], array[value_index + 1], 0, count + 1 << 3, size - 1);
+    while(value_index < count) 
+        array[value_index] = array[++value_index];
+
     return true;
 }
 
@@ -136,29 +135,29 @@ stock bool:_SortArray_Remove(array[], &count, value, const size = sizeof array) 
 //          Internal Functions           //
 // ------------------------------------- //
 
-static stock _SortArray_FindIndex(const array[], count, value) {
+stock _SortArray_FindIndex(const array[], count, value) {
     if(!count)
         return INVALID_ARRAY_INDEX;
 
     if(array[0] == value)
         return 0;
 
-    if(array[count - 1] == value)
-        return count - 1;
+    if(value == array[--count])
+        return count;
 
     new half = count / 2;
 
     if(array[half] == value)
         return half;
 
-    if(value >= array[half]) {
+    if(value > array[half]) {
         while(++half < count) {
             if(array[half] == value)
                 return half;
         }
     }
-    else if(value <= array[half]) {
-        while(--half >= 0) {
+    else if(value < array[half]) {
+        while(--half > 0) {
             if(array[half] == value)
                 return half;
         }
