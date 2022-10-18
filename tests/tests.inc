@@ -12,49 +12,49 @@
 // ------------------------------------- //
 
 _@Sort_Functions_Test() {
-	new 
-		SortedArray:test<10>;
+    new 
+        SortedArray:test<10>;
 
-	//
+    //
     //  Insert Test
     //
 
-	//Insert some values.
-	SortArray_Insert(test, 5);
-	SortArray_Insert(test, 6);
-	SortArray_Insert(test, 0);
-	SortArray_Insert(test, 2);
-	SortArray_Insert(test, 3);
-	SortArray_Insert(test, 4);
-	SortArray_Insert(test, 9);
-	SortArray_Insert(test, 7);
-	SortArray_Insert(test, 10);
-	SortArray_Insert(test, 13);
+    //Insert some values.
+    SortArray_Insert(test, 5);
+    SortArray_Insert(test, 6);
+    SortArray_Insert(test, 0);
+    SortArray_Insert(test, 2);
+    SortArray_Insert(test, 3);
+    SortArray_Insert(test, 4);
+    SortArray_Insert(test, 9);
+    SortArray_Insert(test, 7);
+    SortArray_Insert(test, 10);
+    SortArray_Insert(test, 13);
 
-	SortArray_Insert(test, 1); //Overflow.
+    SortArray_Insert(test, 1); //Overflow.
 
-	//Check if values are sorted and inserted successfully.
-	new values[10] = {0, 2, 3, 4, 5, 6, 7, 9, 10, 13}, values_count;
+    //Check if values are sorted and inserted successfully.
+    new values[10] = {0, 2, 3, 4, 5, 6, 7, 9, 10, 13}, values_count;
 
-	for(new i = 0; i < SortArray_Count(test); ++i) {
-		if(values[i] == SortArr@test[i]) 
-			++values_count;
-	}
+    for(new i = 0; i < SortArray_Count(test); ++i) {
+        if(values[i] == SortArr@test[i]) 
+            ++values_count;
+    }
 
-	//Stop the test if values are not matching.
-	if(values_count != 10) {
-		new str[128] = "[Sorted Array Tests] Insert test failed (values are not matching). Elements:";
+    //Stop the test if values are not matching.
+    if(values_count != 10) {
+        new str[128] = "[Sorted Array Tests] Insert test failed (values are not matching). Elements:";
 
-		_@SortArray_Print_Values(test, str);
+        _@SortArray_Print_Values(test, str);
 
-		return 1;
-	}
+        return 1;
+    }
 
-	//
+    //
     //  Remove Test
     //
 
-	//Remove some values.
+    //Remove some values.
     SortArray_Remove(test, 5);
     SortArray_Remove(test, 10);
     SortArray_Remove(test, 0);
@@ -86,25 +86,25 @@ _@Sort_Functions_Test() {
     values_count = 0;
 
     for(new i = 0; i < SortArray_Count(test); ++i) {
-		if(values_[i] == SortArr@test[i]) 
-			++values_count;
-	}
+        if(values_[i] == SortArr@test[i]) 
+            ++values_count;
+    }
 
-	//Stop the test if values are not matching.
-	if(values_count != 9) {
-		new str[128] = "[Sorted Array Tests] Remove test failed (values are not matching). Elements:";
+    //Stop the test if values are not matching.
+    if(values_count != 9) {
+        new str[128] = "[Sorted Array Tests] Remove test failed (values are not matching). Elements:";
 
-		_@SortArray_Print_Values(test, str);
+        _@SortArray_Print_Values(test, str);
 
-		return 1;
-	}
+        return 1;
+    }
 
-	//
+    //
     //  Copy Test
     //
 
     new 
-    	SortedArray:copy<10>;
+        SortedArray:copy<10>;
 
     SortArray_Copy(copy, test);
 
@@ -112,27 +112,27 @@ _@Sort_Functions_Test() {
     values_count = 0;
 
     for(new i = 0; i < SortArray_Count(copy); ++i) {
-		if(values_[i] == SortArr@copy[i]) 
-			++values_count;
-	}
+        if(values_[i] == SortArr@copy[i]) 
+            ++values_count;
+    }
 
-	//Stop the test if values are not matching.
-	if(values_count != 9) {
-		new str[128] = "[Sorted Array Tests] Copy test failed (values are not matching). Elements:";
+    //Stop the test if values are not matching.
+    if(values_count != 9) {
+        new str[128] = "[Sorted Array Tests] Copy test failed (values are not matching). Elements:";
 
-		_@SortArray_Print_Values(copy, str);
+        _@SortArray_Print_Values(copy, str);
 
-		return 1;
-	}
+        return 1;
+    }
 
-	//
+    //
     //  Contains Test
     //
 
     if(!SortArray_Contains(test, -64) || SortArray_Contains(test, 41) || SortArray_Contains(test, cellmin) || SortArray_Contains(test, 4) || 
-    	!SortArray_Contains(test, 9) || SortArray_Contains(test, 0) == true || SortArray_Contains(test, 40) == false) {
+        !SortArray_Contains(test, 9) || SortArray_Contains(test, 0) == true || SortArray_Contains(test, 40) == false) {
 
-    	return print("[Sorted Array Tests] Contains test failed.");
+        return print("[Sorted Array Tests] Contains test failed.");
     }
 
     //
@@ -154,18 +154,18 @@ _@Sort_Functions_Test() {
     values_count = 0;
 
     for(new i = 0; i < SortArray_Count(test); ++i) {
-		if(values__[i] == SortArr@test[i]) 
-			++values_count;
-	}
+        if(values__[i] == SortArr@test[i]) 
+            ++values_count;
+    }
 
-	//Stop the test if values are not matching.
-	if(values_count != 4) {
-		new str[128] = "[Sorted Array Tests] Clear test failed (values are not matching). Elements:";
+    //Stop the test if values are not matching.
+    if(values_count != 4) {
+        new str[128] = "[Sorted Array Tests] Clear test failed (values are not matching). Elements:";
 
-		_@SortArray_Print_Values(test, str);
+        _@SortArray_Print_Values(test, str);
 
-		return 1;
-	}
+        return 1;
+    }
 
     return print("[Sorted Array Tests] Tests passed (5/5).");
 }
