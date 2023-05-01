@@ -136,31 +136,29 @@ stock bool:_SortArray_Remove(array[], &count, value) {
 // ------------------------------------- //
 
 stock _SortArray_FindIndex(const array[], count, value) {
-    if(!count)
+    if(!count || value > array[--count])
         return INVALID_ARRAY_INDEX;
 
     if(array[0] == value)
         return 0;
 
-    if(value == array[--count])
+    if(value == array[count])
         return count;
 
-    new half = count / 2;
+    new
+        left, mid;
 
-    if(array[half] == value)
-        return half;
+    while(left < count) {
+        mid = (left + count) / 2;
 
-    if(value > array[half]) {
-        while(++half < count) {
-            if(array[half] == value)
-                return half;
-        }
-    }
-    else if(value < array[half]) {
-        while(--half > 0) {
-            if(array[half] == value)
-                return half;
-        }
+        if(array[mid] < value)
+            left = mid + 1;
+        
+        else if(array[mid] > value)
+            count = mid;
+        
+        else
+            return mid;
     }
 
     return INVALID_ARRAY_INDEX;
