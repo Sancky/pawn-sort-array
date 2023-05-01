@@ -142,15 +142,15 @@ stock _SortArray_CountOccurences(const array[], count, const value) {
         return 0;
 
     new 
-        pivot = value_index - 1,
+        pivot = value_index,
         occurences = 1;
 
-    while(pivot > -1 && array[pivot--] == value) 
+    while(pivot && array[--pivot] == value) 
         ++occurences;
  
-    pivot = value_index + 1;
+    pivot = value_index;
 
-    while(pivot < count && array[pivot++] == value)
+    while(pivot < count && array[++pivot] == value)
         ++occurences;
 
     return occurences;
