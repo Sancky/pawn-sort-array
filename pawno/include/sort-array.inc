@@ -69,7 +69,7 @@
 #define SortArray_Insert(%0,%1) \
         _SortArray_Insert(SortArr@%0, SortArr@count_%0, %1) 
 
-stock bool:_SortArray_Insert(array[], &count, value, const size = sizeof array) {
+stock bool:_SortArray_Insert(array[], &count, const value, const size = sizeof array) {
     if(count == size)
         return false;
 
@@ -104,7 +104,7 @@ stock bool:_SortArray_Insert(array[], &count, value, const size = sizeof array) 
 #define SortArray_Remove(%0,%1) \
         _SortArray_Remove(SortArr@%0, SortArr@count_%0, %1) 
 
-stock bool:_SortArray_Remove(array[], &count, value) {
+stock bool:_SortArray_Remove(array[], &count, const value) {
     new 
         values_count = count,
         value_index = _SortArray_FindIndex(array, values_count, value);
@@ -131,11 +131,45 @@ stock bool:_SortArray_Remove(array[], &count, value) {
 /*  don't exists.                                                   */
 /* ---------------------------------------------------------------- */
 
+#define SortArray_CountOccurences(%0,%1) \
+        _SortArray_CountOccurences(SortArr@%0, SortArr@count_%0, %1) 
+
+stock _SortArray_CountOccurences(const array[], count, const value) {
+    new 
+        value_index = _SortArray_FindIndex(array, count, value);
+
+    if(value_index == INVALID_ARRAY_INDEX) 
+        return 0;
+
+    new 
+        pivot = value_index - 1,
+        occurences = 1;
+
+    while(pivot > -1 && array[pivot--] == value) 
+        ++occurences;
+ 
+    pivot = value_index + 1;
+
+    while(pivot < count && array[pivot++] == value)
+        ++occurences;
+
+    return occurences;
+}
+
+/* ---------------------------------------------------------------- */
+/*  SortArray_CountOccurences(array[], value)                       */
+/*                                                                  */
+/*  Count occurences for a specific element from the sorted array.  */
+/*                                                                  */
+/*                                                                  */
+/*  Returns the count.                                              */
+/* ---------------------------------------------------------------- */
+
 // ------------------------------------- //
 //          Internal Functions           //
 // ------------------------------------- //
 
-stock _SortArray_FindIndex(const array[], count, value) {
+stock _SortArray_FindIndex(const array[], count, const value) {
     if(!count || value > array[--count])
         return INVALID_ARRAY_INDEX;
 
@@ -151,14 +185,14 @@ stock _SortArray_FindIndex(const array[], count, value) {
     while(left < count) {
         mid = (left + count) / 2;
 
+        if(array[mid] == value)
+            return mid;
+
         if(array[mid] < value)
             left = mid + 1;
-        
+
         else if(array[mid] > value)
             count = mid;
-        
-        else
-            return mid;
     }
 
     return INVALID_ARRAY_INDEX;
