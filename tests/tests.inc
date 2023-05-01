@@ -100,6 +100,41 @@ _@Sort_Functions_Test() {
     }
 
     //
+    //  Count Occurences
+    //
+
+    //Remove some values.
+    SortArray_Remove(test, 2);
+    SortArray_Remove(test, 3);
+
+    //Add occurences.
+    SortArray_Insert(test, -64);
+    SortArray_Insert(test, -64);
+
+    //Remove some values.
+    SortArray_Remove(test, 40);
+
+    //Insert some values.
+    SortArray_Insert(test, -60);
+
+    if(SortArray_CountOccurences(test, -64) != 4 || SortArray_CountOccurences(test, 40) != 0 || SortArray_CountOccurences(test, 6) != 1) {
+        new str[128] = "[Sorted Array Tests] Count occurences test failed. Elements:";
+
+        _@SortArray_Print_Values(test, str);
+
+        return 1;
+    }
+
+    //Re-make old values.
+    SortArray_Remove(test, -64);
+    SortArray_Remove(test, -64);
+    SortArray_Remove(test, -60);
+
+    SortArray_Insert(test, 2);
+    SortArray_Insert(test, 3);
+    SortArray_Insert(test, 40);
+
+    //
     //  Copy Test
     //
 
@@ -167,5 +202,5 @@ _@Sort_Functions_Test() {
         return 1;
     }
 
-    return print("[Sorted Array Tests] Tests passed (5/5).");
+    return print("[Sorted Array Tests] Tests passed (6/6).");
 }
