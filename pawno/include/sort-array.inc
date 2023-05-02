@@ -170,7 +170,7 @@ stock _SortArray_CountOccurences(const array[], count, const value) {
 // ------------------------------------- //
 
 stock _SortArray_FindIndex(const array[], count, const value) {
-    if(!count || value > array[--count])
+    if(!count || array[--count] < value < array[0])
         return INVALID_ARRAY_INDEX;
 
     if(array[0] == value)
