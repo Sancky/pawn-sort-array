@@ -82,7 +82,7 @@ stock bool:_SortArray_Insert(array[], &count, const value, const size = sizeof a
     else {
         new i = count - 1;
 
-        while(value <= array[i] && i >= 0) 
+        while(value < array[i] && i >= 0) 
             array[i + 1] = array[i--];
      
         array[i + 1] = value;
