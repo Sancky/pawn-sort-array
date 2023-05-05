@@ -4,12 +4,6 @@
 #define _sort_array_included_
 
 // ------------------------------------- //
-//              Constants                //
-// ------------------------------------- //
-
-#define INVALID_ARRAY_INDEX -1
-
-// ------------------------------------- //
 //             Macro guards              //
 // ------------------------------------- //
 
@@ -55,7 +49,7 @@
 /* ---------------------------------------------------------------- */
 
 #define SortArray_Contains(%0,%1) \
-        (_SortArray_FindIndex(SortArr@%0, SortArr@count_%0, %1) != INVALID_ARRAY_INDEX)
+        (_SortArray_FindIndex(SortArr@%0, SortArr@count_%0, %1) != -1)
 
 /* ---------------------------------------------------------------- */
 /*  SortArray_Contains(array[], value)                              */
@@ -109,7 +103,7 @@ stock bool:_SortArray_Remove(array[], &count, const value) {
         values_count = count,
         value_index = _SortArray_FindIndex(array, values_count, value);
 
-    if(value_index == INVALID_ARRAY_INDEX) 
+    if(value_index == -1) 
         return false;
 
     if(value == array[--count]) 
@@ -138,7 +132,7 @@ stock _SortArray_CountOccurences(const array[], count, const value) {
     new 
         value_index = _SortArray_FindIndex(array, count, value);
 
-    if(value_index == INVALID_ARRAY_INDEX) 
+    if(value_index == -1) 
         return 0;
 
     new 
@@ -171,7 +165,7 @@ stock _SortArray_CountOccurences(const array[], count, const value) {
 
 stock _SortArray_FindIndex(const array[], count, const value) {
     if(!count || !(array[0] <= value <= array[--count]))
-        return INVALID_ARRAY_INDEX;
+        return -1;
 
     if(array[0] == value)
         return 0;
@@ -195,7 +189,7 @@ stock _SortArray_FindIndex(const array[], count, const value) {
             count = mid;
     }
 
-    return INVALID_ARRAY_INDEX;
+    return -1;
 }   
 
 /* ---------------------------------------------------------------- */
@@ -204,5 +198,5 @@ stock _SortArray_FindIndex(const array[], count, const value) {
 /*  Get the index for a specific value from the sorted array.       */
 /*                                                                  */
 /*                                                                  */
-/*  Returns the value's index, otherwise INVALID_ARRAY_INDEX.       */
+/*  Returns the value's index, otherwise -1.                        */
 /* ---------------------------------------------------------------- */
